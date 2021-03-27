@@ -1,4 +1,4 @@
-# gFont-Input
+# gFontInput
 
 A simple google font picker for use with input controls. Has a simple font style preview. Lazy loads fonts only when needed. Minimal implementation.
 
