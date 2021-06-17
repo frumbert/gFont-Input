@@ -56,6 +56,8 @@
       var input = event.target.closest("div.gfont-input-box").previousElementSibling;
       input.style.fontFamily = event.target.textContent;
       input.value = event.target.textContent;
+      var e = new Event('change');
+      input.dispatchEvent(e);
       input.classList.remove('gfont-input-dropdown');
     },
 
