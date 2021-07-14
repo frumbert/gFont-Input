@@ -2,7 +2,7 @@
 
 A simple google font picker for use with input controls. Has a simple font style preview. Lazy loads fonts only when needed. Minimal implementation.
 
-7.15KB gzipped (14.25KB uncompressed)
+2.1KB gzipped (6KB uncompressed)
 
 ## Usage
 
