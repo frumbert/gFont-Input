@@ -97,6 +97,7 @@
     },
 
     loadFont: function(family) {
+      console.dir(family);
       if (!family || this.cache[family]) return;
       this.injectStyle('@import url("https://fonts.googleapis.com/css?display=swap&family=' + family.replace(/\s/gi,'+') + '");');
       this.cache[family] = 1;
@@ -114,6 +115,11 @@
       });
     },
 
+    loadValue: function(value) {
+      this.loadFont(value);
+      this.el.style.fontFamily = value;
+    },
+
     // clickHandler occurs outside the scope of this object, so we have to find the input element for this event
     clickHandler: function(event) {
       var input = event.target.closest("div.gfont-input-box").previousElementSibling;
@@ -127,6 +133,7 @@
     create: function(input) {
       if(typeof input === 'string') input = document.querySelector('#'+input);
       if (!input) return;
+      var that = this;
       this.el = input;
       this.el.classList.add('gfont-input');
       this.el.insertAdjacentHTML('afterend', this.html);
@@ -138,9 +145,16 @@
       this.el.addEventListener('blur', function(elm) {
         setTimeout(function() {elm.target.classList.remove('gfont-input-dropdown')}, gFontInput.focusDelay);
       });
+      this.el.addEventListener('change', function(elm) {
+        that.loadValue(elm.target.value);// ensure font is loaded if changed from elsewhere
+      });
 
       this.head = document.head || document.getElementsByTagName('head')[0];
       this.injectStyle(this.css);
+
+      if (input.value.length) {
+        that.loadValue(input.value);
+      }
 
       this.container.innerHTML = this.fonts.split(",").map(function(v) {
         return '<div style="font-family:\''+v+'\'">'+v+'</div>';
